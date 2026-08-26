@@ -1,15 +1,11 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun, Menu, X } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/constants";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -27,7 +23,7 @@ export default function Navbar() {
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300 border-b",
         scrolled
-          ? "bg-white/70 dark:bg-black/70 backdrop-blur-md border-neutral-200 dark:border-neutral-800 py-4"
+          ? "bg-[#050505]/85 backdrop-blur-md border-white/5 py-4"
           : "bg-transparent border-transparent py-6"
       )}
     >
@@ -36,55 +32,46 @@ export default function Navbar() {
           href="#home"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-xl font-bold tracking-tighter"
+          className="text-xl font-bold tracking-tighter font-poppins"
         >
-          SACHIN<span className="text-blue-600">.</span>
+          SACHIN<span className="text-[#c6ff00]">.</span>
         </motion.a>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        
+        <div className="hidden md:flex items-center gap-4 lg:gap-6">
           {NAV_LINKS.map((link, i) => (
             <motion.a
               key={link.name}
               href={link.href}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="text-sm font-medium hover:text-blue-600 transition-colors"
+              transition={{ delay: i * 0.05 }}
+              className="text-xs lg:text-sm font-medium hover:text-[#c6ff00] transition-colors duration-200"
             >
               {link.name}
             </motion.a>
           ))}
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
-          >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
         </div>
 
-        {/* Mobile Toggle */}
+        
         <div className="md:hidden flex items-center gap-4">
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="p-2 rounded-full"
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="p-2 text-neutral-400 hover:text-white transition-colors"
           >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-          <button onClick={() => setIsOpen(!isOpen)} className="p-2">
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white dark:bg-black border-b border-neutral-200 dark:border-neutral-800 overflow-hidden"
+            className="md:hidden bg-[#050505] border-b border-white/5 overflow-hidden"
           >
             <div className="flex flex-col p-6 gap-4">
               {NAV_LINKS.map((link) => (
@@ -92,7 +79,7 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-lg font-medium"
+                  className="text-lg font-medium hover:text-[#c6ff00] transition-colors"
                 >
                   {link.name}
                 </a>
@@ -104,3 +91,4 @@ export default function Navbar() {
     </nav>
   );
 }
+
