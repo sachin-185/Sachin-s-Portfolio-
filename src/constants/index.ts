@@ -1,11 +1,10 @@
 export const NAV_LINKS = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Experience", href: "#experience" },
-  { name: "Education", href: "#education" },
+  { name: "Home", href: "#home" }, { name: "About", href: "#about" },
+  { name: "Experience", href: "#experience" }, { name: "Education", href: "#education" },
   { name: "Achievements", href: "#achievements" },
   { name: "Certificates", href: "#certificates" },
   { name: "Projects", href: "#projects" },
+  { name: "Recommendations", href: "#recommendations" },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -19,7 +18,7 @@ export const SOCIAL_LINKS = {
 
 export const PERSONAL_INFO = {
   name: "Sachin S",
-  roles: ["AI Developer", "Software Developer"],
+  roles: ["Software Developer", "AI Developer"],
   about: "AI & Data Science student exploring the intersection of machine learning and modern web development. Welcome to my digital workspace!",
   aboutDetailed: "I am a B.Tech student in Artificial Intelligence & Data Science at Rajalakshmi Institute of Technology, Chennai. As an aspiring software and AI engineer, I enjoy building intelligent systems, training machine learning classifiers, and developing responsive modern applications.\n\nI have gained hands-on engineering experience through intern roles at Plugzmart (developing power division models and anomaly detectors), Google (engaging the developer community as Student Ambassador), and Edunet Foundation (building ML and computer vision systems). I focus on writing clean code, designing solid APIs, and adapting rapidly to new technology stacks.",
   location: "Chennai, Tamil Nadu, India",
@@ -33,17 +32,18 @@ export const EXPERIENCE = [
     period: "Feb 2026 – May 2026",
     location: "Chennai, Tamil Nadu",
     points: [
-      "Developed an intelligent hardware selection engine using XGBoost Learning-to-Rank (LTR) and dynamic resource allocation APIs to partition 240 kW of power, achieving an average NDCG@5 score of 0.66 for thermal safety and power throughput optimization and also developed an AI-powered EV charging optimization dashboard using React, backed by a Python Flask simulating real-time rectifier routing and dynamic load balancing.",
-      "Architected a multi-dimensional telemetry pipeline and unsupervised Isolation Forest health guard to monitor historical wear and isolate 3.31% anomalous states, enabling proactive load distribution and reliable EV charging station management."
+      "Worked on building an AI-powered EV charging platform, enabling dynamic load distribution across 8 power modules and improving real-time troubleshooting capabilities.",
+      "Developed an automated load-balancing engine for DC fast chargers to help increase power distribution efficiency by 32%.",
+      "This was achieved by scoring hardware health and ranking optimal rectifiers using XGBoost models. Designed a real-time diagnostic copilot to help reduce troubleshooting latency by 40%. This was achieved by synthesizing live rectifier state matrices into root-cause explanations using Qwen2.5 LLM via Ollama."
     ],
-    tech: ["Python", "Flask", "React", "Vite", "XGBoost", "Scikit-Learn", "REST APIs"]
+    tech: ["Python", "Flask", "React", "Vite", "XGBoost", "Scikit-Learn", "REST APIs", "Hugging Face"]
   }
 ];
 
 export const EDUCATION = [
   {
     institution: "Rajalakshmi Institute of Technology",
-    degree: "B.Tech - Artificial Intelligence & Data Science (CGPA: 7.85)",
+    degree: "B.Tech - Artificial Intelligence & Data Science",
     period: "2023 – 2027",
     image: "/images/rit.png",
   },
@@ -58,14 +58,14 @@ export const EDUCATION = [
 export const ACHIEVEMENTS = [
   {
     title: "LeetCode",
-    metric: "Solved 537+ coding problems",
-    detail: "Received 12+ LeetCoding Challenge badges including with the 200-day badge.",
+    metric: "Solved 551+ coding problems",
+    detail: "Received 13+ LeetCoding Challenge badges including with the 200-day badge.",
     category: "Code",
   },
   {
     title: "SkillRack",
-    metric: "Solved 955+ Coding problems",
-    detail: "Solved problems in Python, C, and Java with 230+ bronze badges.",
+    metric: "Solved 970+ Coding problems",
+    detail: "Achieved Top 100 ranking on Coding Challenge leaderboard, with a record of 973+ problems solved across data structures, algorithms, and logic-based challenges.",
     category: "Code",
   },
   {
@@ -133,7 +133,7 @@ export const PROJECTS = [
     title: "Healthcare Data Security",
     description: "Designed a secure healthcare web app using AES encryption with different key sizes and output formats.",
     tech: ["React", "CryptoJS", "AES"],
-    image: "/images/HDS.png",
+    image: "/images/healthcare_security.jpg",
     link: "https://github.com/sachin-185/Healthcare-Data-Security-",
     category: "Web",
   },
@@ -154,10 +154,10 @@ export const PROJECTS = [
     category: "Data",
   },
   {
-    title: "Microsoft Clone",
-    description: "A responsive clone of the Microsoft website built with HTML, CSS, and JavaScript.",
+    title: "Microsoft Official Website Replica",
+    description: "A responsive replica of the official Microsoft website built with HTML, CSS, and JavaScript.",
     tech: ["HTML", "CSS", "JavaScript"],
-    image: "/images/Microsoft.png",
+    image: "/images/microsoft_replica.jpg",
     link: "https://github.com/sachin-185/Microsoft-Clone.git",
     category: "Web",
   },
@@ -165,20 +165,26 @@ export const PROJECTS = [
 
 export const CERTIFICATES = [
   {
-    title: "Research Methods in Health Promotion (84%)",
+    title: "Research Methods in Health Promotion",
     issuer: "NPTEL | IIT Kharagpur",
-    period: "Jul - Oct 2025",
-    image: "/certificates/Screenshot 2026-04-11 151143.png",
-    link: "/certificates/Screenshot 2026-04-11 151143.png",
+    image: "/certificates/nptel_research_methods.png",
+    link: "/certificates/nptel_research_methods.png",
     type: "Silver Elite",
+    category: "Others",
+  },
+  {
+    title: "Entrepreneurship Essentials",
+    issuer: "NPTEL | IIT Kharagpur",
+    image: "/certificates/NPTEL.png",
+    link: "/certificates/NPTEL.png",
     category: "Others",
   },
   {
     title: "Prompt Engineering & Programming",
     issuer: "Columbia University",
     period: "Aug 2025",
-    image: "/certificates/Screenshot 2026-04-11 151859.png",
-    link: "/certificates/Screenshot 2026-04-11 151859.png",
+    image: "/certificates/columbia_prompt_engineering.png",
+    link: "/certificates/columbia_prompt_engineering.png",
     type: "Specialization",
     category: "AI/ML",
   },
@@ -195,18 +201,81 @@ export const CERTIFICATES = [
     title: "From SQL to MongoDB's Document Model",
     issuer: "MongoDB",
     period: "2025",
-    image: "/certificates/udemy_thumb.png",
-    link: "/certificates/udemy_thumb.png",
+    image: "/certificates/mongodb.png",
+    link: "/certificates/mongodb.png",
     type: "Skill",
-    category: "Databases",
+    category: ["Databases", "Backend & Tools"],
   },
   {
-    title: "Java Basics for Beginners",
+    title: "Java",
     issuer: "Udemy",
     period: "2025",
     image: "/certificates/udemy_thumb.png",
-    link: "/certificates/Udemy(Java Basics for Beginners).pdf",
+    link: "/certificates/udemy_java_basics.pdf",
     type: "Skill",
     category: "Backend & Tools",
+  },
+  {
+    title: "Anthropic Certification",
+    issuer: "Anthropic",
+    period: "2026",
+    image: "/certificates/anthropic.png",
+    link: "/certificates/anthropic.png",
+    type: "Certification",
+    category: "AI/ML",
+  },
+  {
+    title: "Hackathon",
+    issuer: "Tech Event",
+    period: "2026",
+    image: "/certificates/hackathon.png",
+    link: "/certificates/hackathon.png",
+    type: "Participation",
+    category: "Others",
+  },
+  {
+    title: "ISRO Workshop",
+    issuer: "Workshop",
+    period: "2026",
+    image: "/certificates/workshop.png",
+    link: "/certificates/workshop.png",
+    type: "Certificate of Completion",
+    category: "Others",
+  },
+  {
+    title: "Coding challenge",
+    issuer: "Unknown",
+    period: "2026",
+    image: "/certificates/new_certificate.png",
+    link: "/certificates/new_certificate.png",
+    type: "Certificate",
+    category: "Others",
+  },
+];
+
+export interface Recommendation {
+  name: string;
+  role: string;
+  date: string;
+  platform: string;
+  text: string;
+  badge?: string;
+  relationship?: string;
+}
+
+export const RECOMMENDATIONS: Recommendation[] = [
+  {
+    name: "Deepak Boopathi",
+    role: "Student at M.Kumarasamy College of Engineering, Karur",
+    date: "September 12, 2026",
+    platform: "LinkedIn",
+    text: "I had the pleasure of meeting Mr. Sachin S during a Quantum Computing workshop conducted by SRM College of Technology, Kattankulathur, Chennai. I had an incredible time interacting with him throughout the workshop, and the conversations I had with him helped me learn a lot of new things. Mr. Sachin S was a knowledgeable and friendly person who had the patience to share his knowledge and experiences with me by explaining things to me in a simple and understandable manner. I really appreciated the time he took to interact with me, and it helped me to learn a lot of new things. I had a great learning experience by meeting and interacting with him, and I am thankful for the knowledge and perspective he shared with me. I would recommend Sachin for his passion for learning, willingness to help others, and interest in technology.",
+  },
+  {
+    name: "Rishika M",
+    role: "Student at Rajalakshmi Institute of Technology",
+    date: "June 20, 2025",
+    platform: "LinkedIn",
+    text: "I had the privilege of working with Mr. Sachin S during our college hackathon, where they mentored me and guided our team with incredible clarity, patience, and leadership. From brainstorming innovative ideas to helping us refine our solution, their presence was truly motivating. Mr. Sachin S has a deep understanding of technology and problem-solving, and their ability to simplify complex concepts made a huge difference for us as juniors. Beyond the technical skills, they consistently encouraged collaboration and brought out the best in every team member. I’m grateful for the opportunity to have worked with such a passionate and knowledgeable mentor, and I have no doubt they’ll make a great impact wherever they go.",
   },
 ];

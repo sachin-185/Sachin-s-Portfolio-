@@ -14,9 +14,9 @@ export default function Experience() {
   };
 
   return (
-    <section id="experience" className="py-32 px-6 bg-[#050505] relative overflow-hidden">
+    <section id="experience" className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-[#050505] relative overflow-hidden">
       <div className="container mx-auto">
-        <div className="flex flex-col gap-4 mb-20 text-center items-center">
+        <div className="flex flex-col gap-4 mb-12 sm:mb-20 text-center items-center">
           <p className="text-xs uppercase tracking-[0.3em] text-[#c6ff00]">Work History</p>
           <h2 
             className="text-3xl md:text-5xl font-extrabold uppercase tracking-tight text-white mt-2"
@@ -27,7 +27,7 @@ export default function Experience() {
           <div className="h-1 w-16 bg-[#c6ff00] rounded-full" />
         </div>
 
-        <div className="max-w-4xl mx-auto flex flex-col gap-8">
+        <div className="max-w-4xl mx-auto flex flex-col gap-6 sm:gap-8">
           {EXPERIENCE.map((exp, i) => (
             <motion.div
               key={exp.company}
@@ -36,43 +36,43 @@ export default function Experience() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.15 }}
               onMouseMove={handleMouseMove}
-              className="group relative p-8 md:p-12 rounded-3xl bg-[#0a0a0a] border border-white/5 hover:border-[#c6ff00]/30 transition-all duration-500 overflow-hidden flex flex-col gap-6"
+              className="group relative p-5 sm:p-8 md:p-12 rounded-3xl bg-[#0a0a0a] border border-white/5 hover:border-[#c6ff00]/30 transition-all duration-500 overflow-hidden flex flex-col gap-5 sm:gap-6"
             >
               
               <div className="bento-card-glow" />
 
               
-              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/5">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#c6ff00]/10 border border-[#c6ff00]/25 flex items-center justify-center text-[#c6ff00] shrink-0 mt-1">
-                    <Briefcase size={20} />
+              <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 sm:pb-6 border-b border-white/5">
+                <div className="flex items-start gap-3.5 sm:gap-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-[#c6ff00]/10 border border-[#c6ff00]/25 flex items-center justify-center text-[#c6ff00] shrink-0 mt-0.5">
+                    <Briefcase size={18} />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold tracking-tight text-white group-hover:text-[#c6ff00] transition-colors duration-300 font-poppins">
+                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white group-hover:text-[#c6ff00] transition-colors duration-300 font-poppins">
                       {exp.role}
                     </h3>
-                    <p className="text-neutral-300 font-semibold text-lg mt-0.5 font-poppins">
+                    <p className="text-neutral-300 font-semibold text-base sm:text-lg mt-0.5 font-poppins">
                       {exp.company}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex flex-col md:items-end gap-1.5 text-xs text-neutral-400 font-mono">
+                <div className="flex flex-row md:flex-col items-center md:items-end gap-3 md:gap-1.5 text-xs text-neutral-400 font-mono">
                   <div className="flex items-center gap-1.5">
-                    <Calendar size={14} className="text-neutral-500" />
+                    <Calendar size={13} className="text-neutral-500" />
                     <span>{exp.period}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <MapPin size={14} className="text-neutral-500" />
+                    <MapPin size={13} className="text-neutral-500" />
                     <span>{exp.location}</span>
                   </div>
                 </div>
               </div>
 
               
-              <ul className="relative z-10 flex flex-col gap-4 text-neutral-400 font-light text-base leading-relaxed pl-2 md:pl-4">
+              <ul className="relative z-10 flex flex-col gap-3.5 sm:gap-4 text-neutral-400 font-light text-sm sm:text-base leading-relaxed pl-1 sm:pl-2 md:pl-4">
                 {exp.points.map((point, index) => (
-                  <li key={index} className="flex gap-3 items-start">
+                  <li key={index} className="flex gap-2.5 sm:gap-3 items-start">
                     <CheckCircle2 size={16} className="text-[#c6ff00] shrink-0 mt-1" />
                     <span>{point}</span>
                   </li>
@@ -80,11 +80,11 @@ export default function Experience() {
               </ul>
 
               
-              <div className="relative z-10 flex flex-wrap gap-2 mt-4 pt-6 border-t border-white/5">
+              <div className="relative z-10 flex flex-wrap gap-1.5 sm:gap-2 mt-2 sm:mt-4 pt-4 sm:pt-6 border-t border-white/5">
                 {exp.tech.map((t) => (
                   <span 
                     key={t} 
-                    className="text-[10px] uppercase font-mono tracking-wider px-3 py-1 bg-white/5 rounded-md text-neutral-300 border border-white/5 group-hover:border-[#c6ff00]/20 transition-all duration-300"
+                    className="text-[10px] uppercase font-mono tracking-wider px-2.5 sm:px-3 py-1 bg-white/5 rounded-md text-neutral-300 border border-white/5 group-hover:border-[#c6ff00]/20 transition-all duration-300"
                   >
                     {t}
                   </span>

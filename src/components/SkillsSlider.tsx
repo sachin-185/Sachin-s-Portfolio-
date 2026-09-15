@@ -185,14 +185,14 @@ export default function SkillsSlider() {
   };
 
   return (
-    <section className="py-28 bg-[#050505] overflow-hidden relative border-b border-white/5">
+    <section className="py-16 sm:py-24 md:py-28 bg-[#050505] overflow-hidden relative border-b border-white/5">
       
-      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-[#c6ff00]/5 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl -z-10" />
+      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-[#c6ff00]/5 rounded-full blur-3xl -z-10 pointer-events-none" />
+      <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl -z-10 pointer-events-none" />
 
-      <div className="container mx-auto px-6 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl">
         
-        <div className="flex flex-col items-center text-center mb-16">
+        <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
           <p className="text-xs uppercase tracking-[0.3em] text-[#c6ff00]">Expertise</p>
           <h2
             className="text-3xl md:text-5xl font-extrabold uppercase tracking-tight text-white mt-2"
@@ -204,7 +204,7 @@ export default function SkillsSlider() {
         </div>
 
         
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-8">
+        <div className="flex overflow-x-auto pb-3 sm:pb-0 sm:flex-wrap justify-start sm:justify-center gap-2.5 sm:gap-3 md:gap-4 mb-6 sm:mb-8 scrollbar-none touch-pan-x w-full">
           {SKILL_CATEGORIES.map((category) => {
             const Icon = category.icon;
             const isActive = activeTab === category.id;
@@ -212,12 +212,12 @@ export default function SkillsSlider() {
               <button
                 key={category.id}
                 onClick={() => setActiveTab(category.id)}
-                className={`flex items-center gap-2 px-5 py-3 rounded-full text-sm font-semibold transition-all duration-300 border font-mono select-none cursor-pointer ${isActive
+                className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 border font-mono select-none cursor-pointer shrink-0 ${isActive
                     ? "bg-[#c6ff00] text-black border-[#c6ff00] shadow-[0_0_20px_rgba(198,255,0,0.25)]"
                     : "bg-[#0c0c0c] text-neutral-400 border-white/5 hover:border-neutral-700 hover:text-white"
                   }`}
               >
-                <Icon size={16} />
+                <Icon size={15} />
                 <span>{category.name}</span>
               </button>
             );
@@ -225,14 +225,14 @@ export default function SkillsSlider() {
         </div>
 
         
-        <div className="text-center mb-12">
-          <p className="text-sm text-neutral-400 italic max-w-xl mx-auto font-mono">
+        <div className="text-center mb-8 sm:mb-12 px-2">
+          <p className="text-xs sm:text-sm text-neutral-400 italic max-w-xl mx-auto font-mono">
             {currentCategory.description}
           </p>
         </div>
 
         
-        <div className="min-h-[300px]">
+        <div className="min-h-[260px] sm:min-h-[300px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -240,29 +240,29 @@ export default function SkillsSlider() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.3 }}
-              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4"
             >
               {currentCategory.skills.map((skill, index) => (
                 <motion.div
                   key={skill.name}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.04, duration: 0.25 }}
+                  transition={{ delay: index * 0.03, duration: 0.25 }}
                   onMouseMove={handleMouseMove}
-                  className="group relative flex flex-col items-center justify-center p-6 rounded-2xl bg-[#0a0a0a]/60 border border-white/5 backdrop-blur-sm shadow-sm hover:border-[#c6ff00]/30 transition-all duration-300 select-none overflow-hidden h-32"
+                  className="group relative flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-[#0a0a0a]/60 border border-white/5 backdrop-blur-sm shadow-sm hover:border-[#c6ff00]/30 transition-all duration-300 select-none overflow-hidden h-28 sm:h-32"
                 >
                   
                   <div className="bento-card-glow" />
 
                   
-                  <div className={`relative z-10 mb-3 transition-all duration-300 flex items-center justify-center ${skill.invert ? "invert brightness-200" : "grayscale group-hover:grayscale-0 group-hover:scale-110"}`}>
+                  <div className={`relative z-10 mb-2 sm:mb-3 transition-all duration-300 flex items-center justify-center ${skill.invert ? "invert brightness-200" : "grayscale group-hover:grayscale-0 group-hover:scale-110"}`}>
                     {skill.icon.startsWith("custom-") ? (
                       renderCustomIcon(skill.icon)
                     ) : (
                       <img
                         src={skill.icon}
                         alt={skill.name}
-                        className="w-8 h-8 object-contain"
+                        className="w-7 h-7 sm:w-8 sm:h-8 object-contain"
                         loading="lazy"
                         onError={(e) => {
                           e.currentTarget.style.display = "none";
@@ -274,7 +274,7 @@ export default function SkillsSlider() {
                   </div>
 
                   
-                  <span className="relative z-10 text-xs md:text-sm font-semibold text-neutral-400 group-hover:text-white transition-colors duration-300 text-center leading-none font-mono">
+                  <span className="relative z-10 text-xs sm:text-sm font-semibold text-neutral-400 group-hover:text-white transition-colors duration-300 text-center leading-tight font-mono px-1 truncate max-w-full">
                     {skill.name}
                   </span>
                 </motion.div>

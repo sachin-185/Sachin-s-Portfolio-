@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { MessageSquare, X, Send, Bot, Sparkles, User, Settings, Plus, Trash2, HelpCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface Message {
   id: string;
@@ -23,8 +24,9 @@ const CHATBOT_KNOWLEDGE = {
   about: "Sachin S is an AI Developer and Software Developer pursuing his B.Tech in Artificial Intelligence & Data Science at Rajalakshmi Institute of Technology (CGPA: 7.85, Graduating 2027). He is passionate about using LLMs, computer vision, and machine learning to build real-world systems.",
   experience: "Sachin S has completed 5 internships:\n- **Plugzmart** (Feb - May 2026): Software Developer Intern. Built XGBoost LTR hardware selection engine & Isolation Forest EV anomalous monitoring.\n- **Google** (Sep 2025 - Feb 2026): Google Student Ambassador. Conducted workshops, promoted Google developer toolkits and APIs.\n- **Rajalakshmi Institute of Technology** (Oct - Nov 2025): Quantum Computing Intern. Researched quantum mechanics and simulated quantum circuits with Qiskit.\n- **Edunet Foundation** (Jul - Aug 2025): Artificial Intelligence Intern. Developed machine learning classifiers and neural network data pipelines in Python.\n- **Prodigy InfoTech** (Mar 2025): Cyber Security Intern. Analyzed application vulnerabilities and monitored encryption hashing protocols.",
   projects: "Sachin has developed several featured projects:\n- **Browser MCP Agent (Gemini)**: A browser automation agent using Puppeteer, Streamlit, and Gemini API.\n- **AI Corporate Insights Dashboard**: A GPU-accelerated NLP pipeline (using PyTorch, BART, DistilBERT) for meeting summaries and attrition tracking.\n- **InternView AI**: An interview preparation app built with React 19, SQLite, Qwen2.5-7B, and Docker.\n- **OptiChargeAI**: Dynamic power allocation for DC EV fast chargers.\n- **ShopGo**: Autonomous marketplace with NLP user intent classification.",
-  achievements: "Sachin's coding achievements include:\n- **LeetCode**: Solved 537+ problems, received 12+ challenge badges, and holds the 200-day badge.\n- **SkillRack**: Solved 955+ problems in Python, C, and Java, earning 230+ bronze badges.\n- **LinkedIn**: 3.8K+ followers, posted 29+ educational posts over 2+ years.\n- **NPTEL**: Secured 84% (Silver + Elite certification) in IIT Kharagpur's Health Promotion course.",
-  skills: "Sachin's core skills are:\n- **Languages**: Python, Java, C, SQL, HTML/CSS, JavaScript\n- **Frameworks/Tech**: PyTorch, TensorFlow, FastAPI, React, RAG, Scikit-Learn, OpenCV\n- **Tools**: MongoDB, Firebase, ChromaDB, S3, Git/GitHub, Docker, Puppeteer, Streamlit, Postman"
+  achievements: "Sachin's coding achievements include:\n- **LeetCode**: Solved 551+ problems, received 13+ challenge badges, and holds the 200-day badge.\n- **SkillRack**: Solved 973+ problems in Python, C, and Java, earning 230+ bronze badges and Top 100 rank.\n- **LinkedIn**: 3.8K+ followers, posted 29+ educational posts over 2+ years.\n- **NPTEL**: Secured 84% (Silver + Elite certification) in IIT Kharagpur's Health Promotion course.",
+  skills: "Sachin's core skills are:\n- **Languages**: Python, Java, C, SQL, HTML/CSS, JavaScript\n- **Frameworks/Tech**: PyTorch, TensorFlow, FastAPI, React, RAG, Scikit-Learn, OpenCV\n- **Tools**: MongoDB, Firebase, ChromaDB, S3, Git/GitHub, Docker, Puppeteer, Streamlit, Postman",
+  recommendations: "Sachin has received verified LinkedIn recommendations:\n- **Deepak Boopathi** (M.Kumarasamy College of Engineering): Met Sachin during a Quantum Computing workshop at SRM College of Technology, praising his patience, clarity in explaining complex topics, and eagerness to help.\n- **Rishika M** (Rajalakshmi Institute of Technology): Worked with Sachin on a college hackathon team where Sachin served as mentor and team guide, commending his problem-solving leadership and collaboration."
 };
 
 type Persona = "friendly" | "recruiter" | "interviewer" | "custom";
@@ -47,7 +49,16 @@ export default function Chatbot() {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   useEffect(() => {
     const saved = localStorage.getItem("sachin_custom_qas");
     if (saved) {
@@ -183,10 +194,13 @@ export default function Chatbot() {
     if (q.includes("about") || q.includes("who is") || q.includes("sachin") || q.includes("profile")) {
       return CHATBOT_KNOWLEDGE.about;
     }
+    if (q.includes("recommendation") || q.includes("endorsement") || q.includes("review") || q.includes("feedback") || q.includes("deepak") || q.includes("rishika") || q.includes("mentor")) {
+      return CHATBOT_KNOWLEDGE.recommendations;
+    }
     if (q.includes("hi") || q.includes("hello") || q.includes("hey") || q.includes("greet")) {
       return CHATBOT_KNOWLEDGE.greetings[Math.floor(Math.random() * CHATBOT_KNOWLEDGE.greetings.length)];
     }
-    return "I can answer questions about Sachin's **experience** at Plugzmart, his **projects** (like Browser MCP Agent, InternView AI, or ShopGo), his coding **achievements** (LeetCode, SkillRack), or his **skills** (Python, React, PyTorch). What would you like to know?";
+    return "I can answer questions about Sachin's **experience** at Plugzmart, his **projects** (like Browser MCP Agent, InternView AI, or ShopGo), his coding **achievements** (LeetCode, SkillRack), **skills**, or **recommendations** from peers. What would you like to know?";
   };
 
   const handleSendMessage = (text: string) => {
@@ -222,34 +236,41 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[999] font-poppins">
+    <div className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-[999] font-poppins">
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 50, scale: 0.9 }}
-            style={{ width: dimensions.width, height: dimensions.height }}
-            className="absolute bottom-16 right-0 bg-[#0a0a0a]/95 border border-white/10 rounded-3xl shadow-2xl flex flex-col overflow-hidden backdrop-blur-lg select-none"
+            exit={{ opacity: 0, y: 30, scale: 0.95 }}
+            style={isMobile ? undefined : { width: dimensions.width, height: dimensions.height }}
+            className={cn(
+              "bg-[#0a0a0a]/95 border border-white/10 shadow-2xl flex flex-col overflow-hidden backdrop-blur-xl select-none z-50",
+              isMobile 
+                ? "fixed inset-x-3 bottom-20 top-20 rounded-2xl max-h-[82vh]"
+                : "absolute bottom-16 right-0 rounded-3xl"
+            )}
           >
             
-            <div 
-              onMouseDown={handleResizeMouseDown}
-              className="absolute top-0 left-0 w-8 h-8 cursor-nwse-resize z-50 flex items-center justify-center group/resize"
-              title="Drag to resize chatbot"
-            >
-              <svg className="w-2.5 h-2.5 text-neutral-600 group-hover/resize:text-[#c6ff00] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                <line x1="4" y1="20" x2="20" y2="4" />
-                <line x1="10" y1="20" x2="20" y2="10" />
-                <line x1="16" y1="20" x2="20" y2="16" />
-              </svg>
-            </div>
+            {!isMobile && (
+              <div 
+                onMouseDown={handleResizeMouseDown}
+                className="absolute top-0 left-0 w-8 h-8 cursor-nwse-resize z-50 flex items-center justify-center group/resize"
+                title="Drag to resize chatbot"
+              >
+                <svg className="w-2.5 h-2.5 text-neutral-600 group-hover/resize:text-[#c6ff00] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                  <line x1="4" y1="20" x2="20" y2="4" />
+                  <line x1="10" y1="20" x2="20" y2="10" />
+                  <line x1="16" y1="20" x2="20" y2="16" />
+                </svg>
+              </div>
+            )}
 
             
-            <div className="p-5 border-b border-white/5 bg-gradient-to-r from-neutral-950 to-neutral-900 flex justify-between items-center pl-8 select-none">
+            <div className={cn("p-4 sm:p-5 border-b border-white/5 bg-gradient-to-r from-neutral-950 to-neutral-900 flex justify-between items-center select-none", !isMobile ? "pl-8" : "pl-4")}>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#c6ff00]/10 border border-[#c6ff00]/25 flex items-center justify-center text-[#c6ff00]">
-                  <Bot size={20} />
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#c6ff00]/10 border border-[#c6ff00]/25 flex items-center justify-center text-[#c6ff00] shrink-0">
+                  <Bot size={18} />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-white leading-none">Sachin AI Assistant</h3>
@@ -463,12 +484,12 @@ export default function Chatbot() {
             </div>
 
             
-            <div className="px-5 py-3 border-t border-white/5 bg-neutral-950/40 flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-none shrink-0 select-none">
+            <div className="px-4 py-2.5 border-t border-white/5 bg-neutral-950/40 flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-none shrink-0 select-none touch-pan-x">
               {presetPrompts.map((prompt) => (
                 <button
                   key={prompt.label}
                   onClick={() => handleSendMessage(prompt.query)}
-                  className="px-3.5 py-1.5 bg-[#0a0a0a] border border-white/5 hover:border-[#c6ff00]/30 hover:text-[#c6ff00] text-neutral-400 rounded-full text-xs font-mono tracking-wide transition-all duration-300 cursor-pointer"
+                  className="px-3 py-1 bg-[#0a0a0a] border border-white/5 hover:border-[#c6ff00]/30 hover:text-[#c6ff00] text-neutral-400 rounded-full text-xs font-mono tracking-wide transition-all duration-300 cursor-pointer shrink-0"
                 >
                   {prompt.label}
                 </button>
@@ -481,19 +502,19 @@ export default function Chatbot() {
                 e.preventDefault();
                 handleSendMessage(inputValue);
               }}
-              className="p-4 border-t border-white/5 bg-neutral-950 flex gap-2 shrink-0 select-none"
+              className="p-3 sm:p-4 border-t border-white/5 bg-neutral-950 flex gap-2 shrink-0 select-none"
             >
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask me anything..."
-                className="flex-1 px-4 py-3 bg-[#050505] border border-white/10 rounded-xl text-sm text-white placeholder-neutral-600 focus:border-[#c6ff00] focus:ring-1 focus:ring-[#c6ff00] outline-none transition-all duration-300"
+                className="flex-1 px-3.5 sm:px-4 py-2.5 sm:py-3 bg-[#050505] border border-white/10 rounded-xl text-xs sm:text-sm text-white placeholder-neutral-600 focus:border-[#c6ff00] focus:ring-1 focus:ring-[#c6ff00] outline-none transition-all duration-300"
               />
               <button
                 type="submit"
                 disabled={!inputValue.trim()}
-                className="p-3 bg-[#c6ff00] hover:bg-[#c6ff00]/90 text-black rounded-xl transition-colors disabled:opacity-50 disabled:hover:bg-[#c6ff00] flex items-center justify-center shrink-0 cursor-pointer"
+                className="p-2.5 sm:p-3 bg-[#c6ff00] hover:bg-[#c6ff00]/90 text-black rounded-xl transition-colors disabled:opacity-50 disabled:hover:bg-[#c6ff00] flex items-center justify-center shrink-0 cursor-pointer"
               >
                 <Send size={16} />
               </button>
@@ -505,11 +526,12 @@ export default function Chatbot() {
       
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-[#c6ff00] hover:bg-[#c6ff00]/90 text-black flex items-center justify-center shadow-xl shadow-[#c6ff00]/10 hover:shadow-[#c6ff00]/25 transition-all duration-300 hover:scale-105 cursor-pointer border border-[#c6ff00]/20 select-none"
+        className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#c6ff00] hover:bg-[#c6ff00]/90 text-black flex items-center justify-center shadow-xl shadow-[#c6ff00]/10 hover:shadow-[#c6ff00]/25 transition-all duration-300 hover:scale-105 cursor-pointer border border-[#c6ff00]/20 select-none"
         aria-label="Toggle assistant"
       >
-        {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
+        {isOpen ? <X size={22} /> : <MessageSquare size={22} />}
       </button>
     </div>
   );
 }
+
